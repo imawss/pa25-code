@@ -18,7 +18,6 @@ import frc.robot.Constants;
 public class SwerveModule extends SubsystemBase {
     private TalonFX driveMotor;  
     private TalonFXConfiguration driveMotorConfiguration;
-    private TalonFXConfigurator driveMotorConfigurator;
 
     private TalonFX steerMotor;  
     private TalonFXConfiguration steerMotorConfiguration;
@@ -31,12 +30,15 @@ public class SwerveModule extends SubsystemBase {
     private final double wheelDiameter; 
 
     public SwerveModule(int driveMotorPort, int steerMotorPort, int steerEncoderPort, boolean isDriveMotorInverted, boolean isSteerMotorInverted) {
-        this.driveMotor = new TalonFX(driveMotorPort);
+        driveMotor = new TalonFX(driveMotorPort);
         driveMotorConfiguration = new TalonFXConfiguration();
         driveMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        driveMotorConfigurator.apply(driveMotorConfiguration);
+        driveMotor.getConfigurator().apply(driveMotorConfiguration);
         
         this.steerMotor = new TalonFX(steerMotorPort);
+        steerMotorConfiguration = new TalonFXConfiguration();
+        steerMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        steerMotor.getConfigurator().apply(steerMotorConfiguration);
         
         this.steerEncoder = new CANcoder(steerEncoderPort);
 
