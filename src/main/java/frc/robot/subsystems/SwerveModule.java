@@ -38,29 +38,23 @@ public class SwerveModule extends SubsystemBase {
         this.steerPID = new PIDController(Constants.SwerveDrive.SteerMotorPID.P, Constants.SwerveDrive.SteerMotorPID.I, Constants.SwerveDrive.SteerMotorPID.D);
     }
 
-    public void configurePIDForAutonomous() {
-        driveMotorConfiguration.Slot0.kP = Constants.SwerveDrive.DriveMotorPID.P;
-        driveMotorConfiguration.Slot0.kI = Constants.SwerveDrive.DriveMotorPID.I;
-        driveMotorConfiguration.Slot0.kD = Constants.SwerveDrive.DriveMotorPID.D;
+    public void configurePIDForAutonomous(double kPD, double kID, double kDD, double kPS, double kIS, double kDS) {
+        drivePID.setP(kPD);
+        drivePID.setI(kID);
+        drivePID.setD(kDD);
 
-        steerMotorConfiguration.Slot0.kP = Constants.SwerveDrive.SteerMotorPID.P;
-        steerMotorConfiguration.Slot0.kI = Constants.SwerveDrive.SteerMotorPID.I;
-        steerMotorConfiguration.Slot0.kD = Constants.SwerveDrive.SteerMotorPID.D;
-
-        driveMotor.getConfigurator().apply(driveMotorConfiguration.Slot0);
-        steerMotor.getConfigurator().apply(steerMotorConfiguration.Slot0);
+        steerPID.setP(kPS);
+        steerPID.setI(kIS);
+        steerPID.setD(kDS);
     }
 
     public void resetPIDToDefault() {
-        driveMotorConfiguration.Slot0.kP = Constants.SwerveDrive.DriveMotorPID.P;
-        driveMotorConfiguration.Slot0.kI = Constants.SwerveDrive.DriveMotorPID.I;
-        driveMotorConfiguration.Slot0.kD = Constants.SwerveDrive.DriveMotorPID.D;
+        drivePID.setP(Constants.SwerveDrive.DriveMotorPID.P);
+        drivePID.setI(Constants.SwerveDrive.DriveMotorPID.I);
+        drivePID.setD(Constants.SwerveDrive.DriveMotorPID.D);
 
-        steerMotorConfiguration.Slot0.kP = Constants.SwerveDrive.SteerMotorPID.P;
-        steerMotorConfiguration.Slot0.kI = Constants.SwerveDrive.SteerMotorPID.I;
-        steerMotorConfiguration.Slot0.kD = Constants.SwerveDrive.SteerMotorPID.D;
-
-        driveMotor.getConfigurator().apply(driveMotorConfiguration.Slot0);
-        steerMotor.getConfigurator().apply(steerMotorConfiguration.Slot0);
+        steerPID.setP(Constants.SwerveDrive.SteerMotorPID.P);
+        steerPID.setI(Constants.SwerveDrive.SteerMotorPID.I);
+        steerPID.setD(Constants.SwerveDrive.SteerMotorPID.D);
     }
 }
