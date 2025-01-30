@@ -19,6 +19,6 @@ If there is anything you would like to report, you can contact us at this e-mail
   
 ## Authors and Acknowledgements
 
-- [FRC Team 3255](https://github.com/FRCTeam3255) When I created this readme page, I got support by examining the code of their page.
+- [FRC Team 3255](https://github.com/FRCTeam3255) I got help creating this README page by reviewing their page's code.
 
   
