@@ -1,31 +1,36 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+
 public class Constants {
-    
-    public static class SwerveDrive{
-        public static double WHEEL_DIAMETER = 0.0508;
-        public static double WHEEL_CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
-        public static double DRIVE_MOTOR_MAX_SPEED = 6000;
+
+    public static class SwerveDrive {
+        public static double kWheelDiameter = 0.0508;
+        public static double kWheelCircumference = Math.PI * kWheelDiameter;
+
+        public static int kEncoderReso = 4096;
+        public static double kDriveMotorMaxSpeed = 6000;
+
+        public static double kWheelBase, kTrackWidth = 0.57785;
+        
+        public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
+                new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+                new Translation2d(kWheelBase / 2, kTrackWidth / 2),
+                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
+                new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
 
         public static class DriveMotorPID {
-            public static double P = 0.2;
-            public static double I = 0.0;
-            public static double D = 0.1;            
+            public static double kP = 0.2;
+            public static double kI = 0.0;
+            public static double kD = 0.1;
         }
 
         public static class SteerMotorPID {
-            public static double P = 0.5;
-            public static double I = 0.1;
-            public static double D = 0.0;            
+            public static double kP = 0.5;
+            public static double kI = 0.1;
+            public static double kD = 0.0;
         }
-    }
-
-    public static class Kraken {
-        public static int ENCODER_RESOLUTION = 4096;        
-    }
-
-    public static class RobotConstants {
-        public static double WHEEL_BASE, TRACK_WIDTH = 0.57785;
     }
 
     public static class CANIds {

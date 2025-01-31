@@ -34,8 +34,8 @@ public class SwerveModule extends SubsystemBase {
         
         this.steerEncoder = new CANcoder(steerEncoderPort);
 
-        this.drivePID = new PIDController(Constants.SwerveDrive.DriveMotorPID.P, Constants.SwerveDrive.DriveMotorPID.I, Constants.SwerveDrive.DriveMotorPID.D);
-        this.steerPID = new PIDController(Constants.SwerveDrive.SteerMotorPID.P, Constants.SwerveDrive.SteerMotorPID.I, Constants.SwerveDrive.SteerMotorPID.D);
+        this.drivePID = new PIDController(Constants.SwerveDrive.DriveMotorPID.kP, Constants.SwerveDrive.DriveMotorPID.kD, Constants.SwerveDrive.DriveMotorPID.kD);
+        this.steerPID = new PIDController(Constants.SwerveDrive.SteerMotorPID.kP, Constants.SwerveDrive.SteerMotorPID.kI, Constants.SwerveDrive.SteerMotorPID.kD);
     }
 
     public void configurePIDForAutonomous(double kPD, double kID, double kDD, double kPS, double kIS, double kDS) {
@@ -49,12 +49,12 @@ public class SwerveModule extends SubsystemBase {
     }
 
     public void resetPIDToDefault() {
-        drivePID.setP(Constants.SwerveDrive.DriveMotorPID.P);
-        drivePID.setI(Constants.SwerveDrive.DriveMotorPID.I);
-        drivePID.setD(Constants.SwerveDrive.DriveMotorPID.D);
+        drivePID.setP(Constants.SwerveDrive.DriveMotorPID.kP);
+        drivePID.setI(Constants.SwerveDrive.DriveMotorPID.kI);
+        drivePID.setD(Constants.SwerveDrive.DriveMotorPID.kD);
 
-        steerPID.setP(Constants.SwerveDrive.SteerMotorPID.P);
-        steerPID.setI(Constants.SwerveDrive.SteerMotorPID.I);
-        steerPID.setD(Constants.SwerveDrive.SteerMotorPID.D);
+        steerPID.setP(Constants.SwerveDrive.SteerMotorPID.kP);
+        steerPID.setI(Constants.SwerveDrive.SteerMotorPID.kI);
+        steerPID.setD(Constants.SwerveDrive.SteerMotorPID.kD);
     }
 }
