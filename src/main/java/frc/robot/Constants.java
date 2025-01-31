@@ -8,12 +8,17 @@ public class Constants {
     public static class SwerveDrive {
         public static double kWheelDiameter = 0.0508;
         public static double kWheelCircumference = Math.PI * kWheelDiameter;
+        public static final double kGearRatio = 1 / 6.75;
+        public static final double kDriveEncoderRot2Meter = kGearRatio * kWheelDiameter * Math.PI;
+        public static final double kTurningEncoderRot2Rad = kGearRatio * Math.PI * 2;
+        public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
+        public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
 
         public static int kEncoderReso = 4096;
         public static double kDriveMotorMaxSpeed = 6000;
 
         public static double kWheelBase, kTrackWidth = 0.57785;
-        
+
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),

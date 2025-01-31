@@ -24,12 +24,12 @@ public class SwerveModule extends SubsystemBase {
     public SwerveModule(int driveMotorPort, int steerMotorPort, int steerEncoderPort, boolean isDriveMotorInverted, boolean isSteerMotorInverted) {
         driveMotor = new TalonFX(driveMotorPort);
         driveMotorConfiguration = new TalonFXConfiguration();
-        driveMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        driveMotor.getConfigurator().apply(driveMotorConfiguration.Slot0);
+        driveMotorConfiguration.MotorOutput.Inverted = isDriveMotorInverted ? InvertedValue.CounterClockwise_Positive : InvertedValue.Clockwise_Positive;
+        driveMotor.getConfigurator().apply(driveMotorConfiguration);
         
         this.steerMotor = new TalonFX(steerMotorPort);
         steerMotorConfiguration = new TalonFXConfiguration();
-        steerMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        steerMotorConfiguration.MotorOutput.Inverted = isSteerMotorInverted ? InvertedValue.CounterClockwise_Positive : InvertedValue.Clockwise_Positive;
         steerMotor.getConfigurator().apply(steerMotorConfiguration);
         
         this.steerEncoder = new CANcoder(steerEncoderPort);
