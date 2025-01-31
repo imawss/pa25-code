@@ -54,6 +54,15 @@ public class SwerveModule extends SubsystemBase {
         return Conversions.RPSToMPS(driveMotor.getVelocity().getValue().in(RotationsPerSecond), Constants.SwerveDrive.kWheelCircumference);
     }
 
+    public double getSteerAngle() {
+        return steerEncoder.getAbsolutePosition().getValue().in(Rotations) * Constants.SwerveDrive.kTurningEncoderRot2Rad;
+    }
+    
+    //idk it's true???
+    public double getSteerVelocity() {
+        return Conversions.RPSToMPS(steerEncoder.getVelocity().getValue().in(RotationsPerSecond), Constants.SwerveDrive.kWheelCircumference);
+    }
+
     public void configurePIDForAutonomous(double kPD, double kID, double kDD, double kPS, double kIS, double kDS) {
         drivePID.setP(kPD);
         drivePID.setI(kID);
