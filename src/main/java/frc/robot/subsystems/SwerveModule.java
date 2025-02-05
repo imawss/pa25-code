@@ -50,6 +50,10 @@ public class SwerveModule extends SubsystemBase {
         steerPID.enableContinuousInput(-Math.PI, Math.PI);
     }
 
+    public SwerveModuleState getState() {
+        return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getSteerAngle()));
+    }
+
     public double getDrivePosition() {
         return Conversions.rotationsToMeters(driveMotor.getPosition().getValue().in(Rotations),
                 Constants.SwerveDrive.kWheelCircumference);
