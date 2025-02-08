@@ -13,17 +13,21 @@ public class Constants {
         public static final double kTurningEncoderRot2Rad = kGearRatio * Math.PI * 2;
         public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
         public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
+        
+        public static final boolean kDriveFLInverted = false;
+        public static final boolean kDriveFRInverted = false;
+        public static final boolean kDriveRRInverted = false;
+        public static final boolean kDriveRLInverted = false;
+
+        public static final boolean kSteerFLInverted = false;
+        public static final boolean kSteerFRInverted = false;
+        public static final boolean kSteerRRInverted = false;
+        public static final boolean kSteerRLInverted = false;
 
         public static int kEncoderReso = 4096;
         public static double kDriveMotorMaxSpeed = 6000;
 
         public static double kWheelBase, kTrackWidth = 0.57785;
-
-        public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-                new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-                new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-                new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
-                new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
 
         public static class DriveMotorPID {
             public static double kP = 0.2;
