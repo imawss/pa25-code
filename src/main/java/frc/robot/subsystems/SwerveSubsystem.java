@@ -4,11 +4,14 @@ import static edu.wpi.first.units.Units.Rotation;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class SwerveSubsystem {
@@ -42,7 +45,7 @@ public class SwerveSubsystem {
 
     private Pigeon2 gyro;
     private final SwerveDriveKinematics kinematics;
-    private final SwerveDriveOdometry odometry;
+    private final SwerveDriveOdometry odometer;
 
     public SwerveSubsystem() {
         kinematics = new SwerveDriveKinematics(
@@ -60,10 +63,37 @@ public class SwerveSubsystem {
                 new SwerveModulePosition(0.0, new Rotation2d())
         };
 
-        odometry = new SwerveDriveOdometry(kinematics, getGyroAngle(), modulePositions);
+        odometer = new SwerveDriveOdometry(kinematics, getGyroAngle(), modulePositions);
+
+        new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                    zeroHeading();
+                } catch (Exception e) {
+                }
+            }).start();
     }
 
     private Rotation2d getGyroAngle() {
         return Rotation2d.fromDegrees(gyro.getYaw().getValue().in(Rotation));
     }
+
+    public double getHeading() {
+        return Math.IEEEremainder(gyro.getYaw().getValue().in(Rotation), 360);
+    }
+
+    private void zeroHeading(){
+        gyro.reset();
+    }
+
+    public Rotation2d getRotation2d() {
+        return Rotation2d.fromDegrees(getHeading());
+        //TODO: Dashboard
+    }
+
+    public Pose2d getPose() {
+        return odometer.getPoseMeters();
+        //TODO: Dashboard
+    }
+
 }
