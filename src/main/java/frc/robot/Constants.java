@@ -24,6 +24,15 @@ public class Constants {
         public static final boolean kSteerRRInverted = false;
         public static final boolean kSteerRLInverted = false;
 
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
+        public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
+
+        public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
+        public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = 
+                kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
+        public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
+        public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
+
         public static int kEncoderReso = 4096;
         public static double kDriveMotorMaxSpeed = 6000;
 
