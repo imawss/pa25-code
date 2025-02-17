@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.math.Conversions;
 import frc.robot.Constants;
 
-public class SwerveModule extends SubsystemBase {
+public class CustomSwerveModule extends SubsystemBase {
     private TalonFX driveMotor;
     private TalonFXConfiguration driveMotorConfiguration;
 
@@ -27,7 +27,7 @@ public class SwerveModule extends SubsystemBase {
     private PIDController steerPID;
     private PIDController drivePID;
 
-    public SwerveModule(int driveMotorPort, int steerMotorPort, int steerEncoderPort, boolean isDriveMotorInverted,
+    public CustomSwerveModule(int driveMotorPort, int steerMotorPort, int steerEncoderPort, boolean isDriveMotorInverted,
             boolean isSteerMotorInverted) {
         driveMotor = new TalonFX(driveMotorPort);
         driveMotorConfiguration = new TalonFXConfiguration();
@@ -120,5 +120,10 @@ public class SwerveModule extends SubsystemBase {
         steerPID.setP(Constants.SwerveDrive.SteerMotorPID.kP);
         steerPID.setI(Constants.SwerveDrive.SteerMotorPID.kI);
         steerPID.setD(Constants.SwerveDrive.SteerMotorPID.kD);
+    }
+
+    public void testSpeed(double driveSpeed, double steerSpeed){
+        driveMotor.set(driveSpeed);
+        steerMotor.set(steerSpeed);
     }
 }

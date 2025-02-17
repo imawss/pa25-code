@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
+@SuppressWarnings("unused")
 public class Constants {
 
     public static class SwerveDrive {
@@ -68,5 +69,16 @@ public class Constants {
         public static int CANCODER_RR = 12;
 
         public static int PIGEON = 20;
+    }
+
+    public static class DriverConstants{
+        public static final int kDriverControllerPort = 0;
+
+        public static final int kDriverYAxis = 1;
+        public static final int kDriverXAxis = 0;
+        public static final int kDriverRotAxis = 4;
+        public static final int kDriverFieldOrientedButtonIdx = 1;
+
+        public static final double kDeadband = 0.05;
     }
 }
