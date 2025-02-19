@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -30,14 +31,14 @@ public class CustomSwerveSubsystem extends SubsystemBase {
             Constants.SwerveDrive.kDriveFRInverted,
             Constants.SwerveDrive.kSteerFRInverted);
 
-    public final CustomSwerveModule RRModule = new CustomSwerveModule(
+    public final CustomSwerveModule RLModule = new CustomSwerveModule(
             Constants.CANIds.DRIVE_RL,
             Constants.CANIds.STEER_RL,
             Constants.CANIds.CANCODER_RL,
             Constants.SwerveDrive.kDriveRLInverted,
             Constants.SwerveDrive.kSteerRLInverted);
 
-    public final CustomSwerveModule RLModule = new CustomSwerveModule(
+    public final CustomSwerveModule RRModule = new CustomSwerveModule(
             Constants.CANIds.DRIVE_RL,
             Constants.CANIds.STEER_RL,
             Constants.CANIds.CANCODER_RL,

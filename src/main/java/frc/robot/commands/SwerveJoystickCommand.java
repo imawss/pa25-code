@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import java.util.function.Supplier;
+import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -10,17 +10,17 @@ import frc.robot.subsystems.CustomSwerveSubsystem;
 
 public class SwerveJoystickCommand extends Command {
     private final CustomSwerveSubsystem swerveSubsystem;
-    private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
-    private final Supplier<Boolean> fieldOrientedFunction;
+    private final DoubleSupplier xInput, yInput, turningInput;
+    private final Boolean fieldOrientedFunction;
     private final SlewRateLimiter xLimiter, yLimiter, turningLimiter;
 
     public SwerveJoystickCommand(CustomSwerveSubsystem swerveSubsystem,
-            Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction,
-            Supplier<Boolean> fieldOrientedFunction) {
+            DoubleSupplier xInput, DoubleSupplier yInput, DoubleSupplier turningInput,
+            Boolean fieldOrientedFunction) {
         this.swerveSubsystem = swerveSubsystem;
-        this.xSpdFunction = xSpdFunction;
-        this.ySpdFunction = ySpdFunction;
-        this.turningSpdFunction = turningSpdFunction;
+        this.xInput = xInput;
+        this.yInput = yInput;
+        this.turningInput = turningInput;
         this.fieldOrientedFunction = fieldOrientedFunction;
         this.xLimiter = new SlewRateLimiter(Constants.SwerveDrive.kTeleDriveMaxAccelerationUnitsPerSecond);
         this.yLimiter = new SlewRateLimiter(Constants.SwerveDrive.kTeleDriveMaxAccelerationUnitsPerSecond);
@@ -29,26 +29,22 @@ public class SwerveJoystickCommand extends Command {
     }
 
     @Override
-    public void initialize() {
-    }
-
-    @Override
     public void execute() {
-        double xSpeed = xSpdFunction.get();
-        double ySpeed = ySpdFunction.get();
-        double turningSpeed = turningSpdFunction.get();
+        double xSpeed = xInput.getAsDouble();
+        double ySpeed = yInput.getAsDouble();
+        double turningSpeed = turningInput.getAsDouble() * 0.1;
 
         xSpeed = Math.abs(xSpeed) > Constants.DriverConstants.kDeadband ? xSpeed : 0.0;
         ySpeed = Math.abs(ySpeed) > Constants.DriverConstants.kDeadband ? ySpeed : 0.0;
         turningSpeed = Math.abs(turningSpeed) > Constants.DriverConstants.kDeadband ? turningSpeed : 0.0;
 
-        xSpeed = xLimiter.calculate(xSpeed) * Constants.SwerveDrive.kTeleDriveMaxSpeedMetersPerSecond;
-        ySpeed = yLimiter.calculate(ySpeed) * Constants.SwerveDrive.kTeleDriveMaxSpeedMetersPerSecond;
+        xSpeed = xLimiter.calculate(xSpeed) * Constants.SwerveDrive.kTeleDriveMaxSpeedMetersPerSecond * 0.1;
+        ySpeed = yLimiter.calculate(ySpeed) * Constants.SwerveDrive.kTeleDriveMaxSpeedMetersPerSecond * 0.1;
         turningSpeed = turningLimiter.calculate(turningSpeed)
-                * Constants.SwerveDrive.kTeleDriveMaxAngularSpeedRadiansPerSecond;
+                * Constants.SwerveDrive.kTeleDriveMaxAngularSpeedRadiansPerSecond * 0.1;
 
         ChassisSpeeds chassisSpeeds;
-        if (fieldOrientedFunction.get()) {
+        if (fieldOrientedFunction) {
             chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
                     xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
         } else {
@@ -56,7 +52,6 @@ public class SwerveJoystickCommand extends Command {
         }
 
         SwerveModuleState[] moduleStates = swerveSubsystem.kinematics.toSwerveModuleStates(chassisSpeeds);
-
         swerveSubsystem.setModuleStates(moduleStates);
     }
 

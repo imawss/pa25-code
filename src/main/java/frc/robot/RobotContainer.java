@@ -1,8 +1,6 @@
 package frc.robot;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.SwerveJoystickCommand;
@@ -11,34 +9,20 @@ import frc.robot.subsystems.CustomSwerveSubsystem;
 public class RobotContainer {
 
   private final CustomSwerveSubsystem swerveSubsystem = new CustomSwerveSubsystem();
-  private final Joystick joystick = new Joystick(0);
-  Supplier<Double> xSpdSupplier;
-  Supplier<Double> ySpdSupplier;
-  Supplier<Double> turningSpdSupplier;
-  Supplier<Boolean> fieldOrientedSupplier;
-
-  private final SwerveJoystickCommand swerveJoystickCommand;
+  private final PS4Controller driverJoystick = new PS4Controller(0);
 
   public RobotContainer() {
-    swerveJoystickCommand = new SwerveJoystickCommand(swerveSubsystem, xSpdSupplier, ySpdSupplier, turningSpdSupplier,
-        fieldOrientedSupplier);
-
     configureBindings();
+    swerveSubsystem.setDefaultCommand(new SwerveJoystickCommand(
+      swerveSubsystem,
+      () -> driverJoystick.getRawAxis(0), 
+      () -> driverJoystick.getRawAxis(1), 
+      () -> driverJoystick.getRawAxis(4), 
+      true 
+    ));
   }
 
   private void configureBindings() {
-    xSpdSupplier = () -> joystick.getX();
-    ySpdSupplier = () -> joystick.getY();
-    turningSpdSupplier = () -> joystick.getZ();
-    fieldOrientedSupplier = () -> true;
-  }
-
-  public void teleopInit() {
-    swerveJoystickCommand.initialize();
-  }
-
-  public void teleopPeriodic() {
-    swerveJoystickCommand.execute();
   }
 
   public Command getAutonomousCommand() {

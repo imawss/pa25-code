@@ -25,13 +25,13 @@ public class Constants {
         public static final boolean kSteerRRInverted = false;
         public static final boolean kSteerRLInverted = false;
 
-        public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 3;
         public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = 
-                kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
-        public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
+                kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
+        public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 2;
         public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
 
         public static int kEncoderReso = 4096;
@@ -53,22 +53,22 @@ public class Constants {
     }
 
     public static class CANIds {
-        public static int DRIVE_FL = 1;
+        public static int DRIVE_FL = 0;
         public static int DRIVE_FR = 2;
-        public static int DRIVE_RL = 3;
-        public static int DRIVE_RR = 4;
+        public static int DRIVE_RL = 4;
+        public static int DRIVE_RR = 6;
 
-        public static int STEER_FL = 5;
-        public static int STEER_FR = 6;
-        public static int STEER_RL = 7;
-        public static int STEER_RR = 8;
+        public static int STEER_FL = 1;
+        public static int STEER_FR = 3;
+        public static int STEER_RL = 5;
+        public static int STEER_RR = 7;
 
-        public static int CANCODER_FL = 9;
-        public static int CANCODER_FR = 10;
-        public static int CANCODER_RL = 11;
-        public static int CANCODER_RR = 12;
+        public static int CANCODER_FL = 8;
+        public static int CANCODER_FR = 9;
+        public static int CANCODER_RL = 10;
+        public static int CANCODER_RR = 11;
 
-        public static int PIGEON = 20;
+        public static int PIGEON = 12;
     }
 
     public static class DriverConstants{
@@ -79,6 +79,6 @@ public class Constants {
         public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 1;
 
-        public static final double kDeadband = 0.05;
+        public static final double kDeadband = 0.02;
     }
 }
