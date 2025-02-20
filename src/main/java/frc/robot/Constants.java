@@ -10,7 +10,7 @@ public class Constants {
         public static double kWheelDiameter = 0.0508;
         public static double kWheelCircumference = Math.PI * kWheelDiameter;
         public static final double kGearRatio = 6.75;
-        public static final double kSteerGearRatio = 21.12676056338028;
+        public static final double kSteerGearRatio = 21.1267;
         public static final double kDriveEncoderRot2Meter = kGearRatio / (kWheelDiameter * Math.PI);
         public static final double kTurningEncoderRot2Rad = kSteerGearRatio / (Math.PI * 2);
         public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
@@ -26,7 +26,7 @@ public class Constants {
         public static final boolean kSteerRRInverted = false;
         public static final boolean kSteerRLInverted = false;
 
-        public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 5.8;
         public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond;
@@ -40,6 +40,11 @@ public class Constants {
 
         public static double kWheelBase = 0.57785;
         public static double kTrackWidth = 0.57785;
+
+        public static double kFLOffset;
+        public static double kFROffset;
+        public static double kRLOffset;
+        public static double kRROffset;
 
         public static class DriveMotorPID {
             public static double kP = 0.2;
