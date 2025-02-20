@@ -39,9 +39,9 @@ public class CustomSwerveSubsystem extends SubsystemBase {
             Constants.SwerveDrive.kSteerRLInverted);
 
     public final CustomSwerveModule RRModule = new CustomSwerveModule(
-            Constants.CANIds.DRIVE_RL,
-            Constants.CANIds.STEER_RL,
-            Constants.CANIds.CANCODER_RL,
+            Constants.CANIds.DRIVE_RR,
+            Constants.CANIds.STEER_RR,
+            Constants.CANIds.CANCODER_RR,
             Constants.SwerveDrive.kDriveRLInverted,
             Constants.SwerveDrive.kSteerRLInverted);
 
@@ -51,10 +51,10 @@ public class CustomSwerveSubsystem extends SubsystemBase {
 
     public CustomSwerveSubsystem() {
         kinematics = new SwerveDriveKinematics(
-                new Translation2d(Constants.SwerveDrive.kWheelBase / 2, -Constants.SwerveDrive.kTrackWidth / 2),
                 new Translation2d(Constants.SwerveDrive.kWheelBase / 2, Constants.SwerveDrive.kTrackWidth / 2),
-                new Translation2d(-Constants.SwerveDrive.kWheelBase / 2, -Constants.SwerveDrive.kTrackWidth / 2),
-                new Translation2d(-Constants.SwerveDrive.kWheelBase / 2, Constants.SwerveDrive.kTrackWidth / 2));
+                new Translation2d(Constants.SwerveDrive.kWheelBase / 2, -Constants.SwerveDrive.kTrackWidth / 2),
+                new Translation2d(-Constants.SwerveDrive.kWheelBase / 2, Constants.SwerveDrive.kTrackWidth / 2),
+                new Translation2d(-Constants.SwerveDrive.kWheelBase / 2, -Constants.SwerveDrive.kTrackWidth / 2));
 
         gyro = new Pigeon2(Constants.CANIds.PIGEON);
 

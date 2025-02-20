@@ -9,9 +9,10 @@ public class Constants {
     public static class SwerveDrive {
         public static double kWheelDiameter = 0.0508;
         public static double kWheelCircumference = Math.PI * kWheelDiameter;
-        public static final double kGearRatio = 1 / 6.75;
-        public static final double kDriveEncoderRot2Meter = kGearRatio * kWheelDiameter * Math.PI;
-        public static final double kTurningEncoderRot2Rad = kGearRatio * Math.PI * 2;
+        public static final double kGearRatio = 6.75;
+        public static final double kSteerGearRatio = 21.12676056338028;
+        public static final double kDriveEncoderRot2Meter = kGearRatio / (kWheelDiameter * Math.PI);
+        public static final double kTurningEncoderRot2Rad = kSteerGearRatio / (Math.PI * 2);
         public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
         public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
         
@@ -25,10 +26,10 @@ public class Constants {
         public static final boolean kSteerRRInverted = false;
         public static final boolean kSteerRLInverted = false;
 
-        public static final double kPhysicalMaxSpeedMetersPerSecond = 3;
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
         public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
-        public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
+        public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond;
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = 
                 kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
         public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 2;
@@ -37,7 +38,8 @@ public class Constants {
         public static int kEncoderReso = 4096;
         public static double kDriveMotorMaxSpeed = 6000;
 
-        public static double kWheelBase, kTrackWidth = 0.57785;
+        public static double kWheelBase = 0.57785;
+        public static double kTrackWidth = 0.57785;
 
         public static class DriveMotorPID {
             public static double kP = 0.2;
@@ -79,6 +81,6 @@ public class Constants {
         public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 1;
 
-        public static final double kDeadband = 0.02;
+        public static final double kDeadband = 0.05;
     }
 }

@@ -18,12 +18,9 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
-  private final CustomSwerveModule m_module;
-  private boolean testCompleted = false;
 
   public Robot() {
     m_robotContainer = new RobotContainer();
-    m_module = new CustomSwerveModule(6, 7, 11, false, false);
   }
 
   @Override
@@ -85,10 +82,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    if (!testCompleted) {
-      m_module.setDesiredState(new SwerveModuleState(0, new Rotation2d(Math.toRadians(90))));
-      testCompleted = true; 
-  }
   }
 
   @Override

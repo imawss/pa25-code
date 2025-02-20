@@ -32,7 +32,7 @@ public class SwerveJoystickCommand extends Command {
     public void execute() {
         double xSpeed = xInput.getAsDouble();
         double ySpeed = yInput.getAsDouble();
-        double turningSpeed = turningInput.getAsDouble() * 0.1;
+        double turningSpeed = turningInput.getAsDouble();
 
         xSpeed = Math.abs(xSpeed) > Constants.DriverConstants.kDeadband ? xSpeed : 0.0;
         ySpeed = Math.abs(ySpeed) > Constants.DriverConstants.kDeadband ? ySpeed : 0.0;

@@ -56,17 +56,17 @@ public class CustomSwerveModule extends SubsystemBase {
     }
 
     public SwerveModulePosition getOdometerPosition() {
-        return new SwerveModulePosition(getDriveVelocity(), new Rotation2d(getSteerAngle()));
+        return new SwerveModulePosition(getDrivePosition(), new Rotation2d(getSteerAngle()));
     }
 
     public double getDrivePosition() {
-        return Conversions.rotationsToMeters(driveMotor.getPosition().getValue().in(Rotations),
-                Constants.SwerveDrive.kWheelCircumference);
+        double wheelRotations = driveMotor.getPosition().getValue().in(Rotations);
+        return wheelRotations * Constants.SwerveDrive.kDriveEncoderRot2Meter;
     }
-
+    
     public double getDriveVelocity() {
-        return Conversions.RPSToMPS(driveMotor.getVelocity().getValue().in(RotationsPerSecond),
-                Constants.SwerveDrive.kWheelCircumference);
+        double wheelRPS = driveMotor.getVelocity().getValue().in(RotationsPerSecond);
+        return wheelRPS * Constants.SwerveDrive.kDriveEncoderRot2Meter;
     }
 
     public double getSteerAngle() {
@@ -95,6 +95,7 @@ public class CustomSwerveModule extends SubsystemBase {
             return;
         }
         state.optimize(new Rotation2d(getSteerAngle()));
+
         double driveOutput = drivePID.calculate(getDriveVelocity(), state.speedMetersPerSecond);
         driveMotor.set(driveOutput);
         double steerOutput = steerPID.calculate(getSteerAngle(), state.angle.getRadians());

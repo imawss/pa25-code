@@ -14,12 +14,11 @@ public class RobotContainer {
   public RobotContainer() {
     configureBindings();
     swerveSubsystem.setDefaultCommand(new SwerveJoystickCommand(
-      swerveSubsystem,
-      () -> driverJoystick.getRawAxis(0), 
-      () -> driverJoystick.getRawAxis(1), 
-      () -> driverJoystick.getRawAxis(4), 
-      true 
-    ));
+        swerveSubsystem,
+        () -> driverJoystick.getRawAxis(0),
+        () -> driverJoystick.getRawAxis(1),
+        () -> driverJoystick.getRawAxis(4),
+        true));
   }
 
   private void configureBindings() {
