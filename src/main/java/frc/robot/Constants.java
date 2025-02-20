@@ -26,7 +26,7 @@ public class Constants {
         public static final boolean kSteerRRInverted = false;
         public static final boolean kSteerRLInverted = false;
 
-        public static final double kPhysicalMaxSpeedMetersPerSecond = 5.8;
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 1.16; //%20 
         public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond;

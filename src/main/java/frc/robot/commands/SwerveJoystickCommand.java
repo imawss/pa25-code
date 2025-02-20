@@ -38,10 +38,10 @@ public class SwerveJoystickCommand extends Command {
         ySpeed = Math.abs(ySpeed) > Constants.DriverConstants.kDeadband ? ySpeed : 0.0;
         turningSpeed = Math.abs(turningSpeed) > Constants.DriverConstants.kDeadband ? turningSpeed : 0.0;
 
-        xSpeed = xLimiter.calculate(xSpeed) * Constants.SwerveDrive.kTeleDriveMaxSpeedMetersPerSecond * 0.1;
-        ySpeed = yLimiter.calculate(ySpeed) * Constants.SwerveDrive.kTeleDriveMaxSpeedMetersPerSecond * 0.1;
+        xSpeed = xLimiter.calculate(xSpeed) * Constants.SwerveDrive.kTeleDriveMaxSpeedMetersPerSecond;
+        ySpeed = yLimiter.calculate(ySpeed) * Constants.SwerveDrive.kTeleDriveMaxSpeedMetersPerSecond;
         turningSpeed = turningLimiter.calculate(turningSpeed)
-                * Constants.SwerveDrive.kTeleDriveMaxAngularSpeedRadiansPerSecond * 0.1;
+                * Constants.SwerveDrive.kTeleDriveMaxAngularSpeedRadiansPerSecond;
 
         ChassisSpeeds chassisSpeeds;
         if (fieldOrientedFunction) {
