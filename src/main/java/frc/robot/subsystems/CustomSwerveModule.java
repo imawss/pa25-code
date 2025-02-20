@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+
+import static edu.wpi.first.units.Units.Degree;
 import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -23,12 +25,14 @@ public class CustomSwerveModule extends SubsystemBase {
     private TalonFXConfiguration steerMotorConfiguration;
 
     private CANcoder steerEncoder;
+    private final Rotation2d CANCoderOffset;
+
 
     private PIDController steerPID;
     private PIDController drivePID;
 
     public CustomSwerveModule(int driveMotorPort, int steerMotorPort, int steerEncoderPort, boolean isDriveMotorInverted,
-            boolean isSteerMotorInverted) {
+            boolean isSteerMotorInverted, Rotation2d CANCoderOffset) {
         driveMotor = new TalonFX(driveMotorPort);
         driveMotorConfiguration = new TalonFXConfiguration();
         driveMotorConfiguration.MotorOutput.Inverted = isDriveMotorInverted ? InvertedValue.CounterClockwise_Positive
@@ -43,6 +47,7 @@ public class CustomSwerveModule extends SubsystemBase {
         steerMotor.getConfigurator().apply(steerMotorConfiguration);
 
         this.steerEncoder = new CANcoder(steerEncoderPort);
+        this.CANCoderOffset = CANCoderOffset;
 
         this.drivePID = new PIDController(Constants.SwerveDrive.DriveMotorPID.kP,
                 Constants.SwerveDrive.DriveMotorPID.kI, Constants.SwerveDrive.DriveMotorPID.kD);
@@ -84,9 +89,16 @@ public class CustomSwerveModule extends SubsystemBase {
         steerMotor.set(0);
     }
 
+    private void configureSteerEncoder() {
+        Rotation2d absolutePosition = Rotation2d.fromRotations(steerEncoder.getAbsolutePosition().getValue().in(Degree))
+                                        .minus(CANCoderOffset);
+        steerEncoder.setPosition(absolutePosition.getRotations());
+        steerMotor.setPosition(absolutePosition.getRotations());
+    }
+
     public void resetEncoders() {
         driveMotor.setPosition(0);
-        steerEncoder.setPosition(steerEncoder.getAbsolutePosition().getValue());
+        configureSteerEncoder(); 
     }
 
     public void setDesiredState(SwerveModuleState state) {

@@ -22,28 +22,32 @@ public class CustomSwerveSubsystem extends SubsystemBase {
             Constants.CANIds.STEER_FL,
             Constants.CANIds.CANCODER_FL,
             Constants.SwerveDrive.kDriveFLInverted,
-            Constants.SwerveDrive.kSteerFLInverted);
+            Constants.SwerveDrive.kSteerFLInverted,
+            new Rotation2d(Constants.SwerveDrive.kFLOffset));
 
     public final CustomSwerveModule FRModule = new CustomSwerveModule(
             Constants.CANIds.DRIVE_FR,
             Constants.CANIds.STEER_FR,
             Constants.CANIds.CANCODER_FR,
             Constants.SwerveDrive.kDriveFRInverted,
-            Constants.SwerveDrive.kSteerFRInverted);
+            Constants.SwerveDrive.kSteerFRInverted,
+            new Rotation2d(Constants.SwerveDrive.kFROffset));
 
     public final CustomSwerveModule RLModule = new CustomSwerveModule(
             Constants.CANIds.DRIVE_RL,
             Constants.CANIds.STEER_RL,
             Constants.CANIds.CANCODER_RL,
             Constants.SwerveDrive.kDriveRLInverted,
-            Constants.SwerveDrive.kSteerRLInverted);
+            Constants.SwerveDrive.kSteerRLInverted,
+            new Rotation2d(Constants.SwerveDrive.kRLOffset));
 
     public final CustomSwerveModule RRModule = new CustomSwerveModule(
             Constants.CANIds.DRIVE_RR,
             Constants.CANIds.STEER_RR,
             Constants.CANIds.CANCODER_RR,
             Constants.SwerveDrive.kDriveRLInverted,
-            Constants.SwerveDrive.kSteerRLInverted);
+            Constants.SwerveDrive.kSteerRLInverted,
+            new Rotation2d(Constants.SwerveDrive.kRROffset));
 
     private Pigeon2 gyro;
     public final SwerveDriveKinematics kinematics;

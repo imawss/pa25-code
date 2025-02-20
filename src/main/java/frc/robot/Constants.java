@@ -11,7 +11,7 @@ public class Constants {
         public static double kWheelCircumference = Math.PI * kWheelDiameter;
         public static final double kGearRatio = 6.75;
         public static final double kSteerGearRatio = 21.1267;
-        public static final double kDriveEncoderRot2Meter = kGearRatio / (kWheelDiameter * Math.PI);
+        public static final double kDriveEncoderRot2Meter = kWheelCircumference / kGearRatio;
         public static final double kTurningEncoderRot2Rad = kSteerGearRatio / (Math.PI * 2);
         public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
         public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
