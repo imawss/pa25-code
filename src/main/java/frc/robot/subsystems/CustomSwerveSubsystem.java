@@ -45,8 +45,8 @@ public class CustomSwerveSubsystem extends SubsystemBase {
             Constants.CANIds.DRIVE_RR,
             Constants.CANIds.STEER_RR,
             Constants.CANIds.CANCODER_RR,
-            Constants.SwerveDrive.kDriveRLInverted,
-            Constants.SwerveDrive.kSteerRLInverted,
+            Constants.SwerveDrive.kDriveRRInverted,
+            Constants.SwerveDrive.kSteerRRInverted,
             new Rotation2d(Constants.SwerveDrive.kRROffset));
 
     private Pigeon2 gyro;
@@ -103,6 +103,7 @@ public class CustomSwerveSubsystem extends SubsystemBase {
 
     private void zeroHeading() {
         gyro.reset();
+        gyro.setYaw(0);
     }
 
     public Rotation2d getRotation2d() {

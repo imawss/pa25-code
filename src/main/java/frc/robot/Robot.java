@@ -83,7 +83,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     CommandScheduler.getInstance().run();
-    steer.set(0.2);
   }
 
   @Override    

@@ -118,6 +118,7 @@ public class CustomSwerveModule extends SubsystemBase {
         double targetVelocityRPS = state.speedMetersPerSecond / Constants.SwerveDrive.kDriveEncoderRot2Meter;
         driveMotor.setControl(new VelocityVoltage(targetVelocityRPS));
         steerMotor.setControl(new PositionVoltage(state.angle.getRotations()));
+        System.out.println(state.angle.getRotations());
     }
 
     public void testSpeed(double driveSpeed, double steerSpeed) {

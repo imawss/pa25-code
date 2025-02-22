@@ -41,10 +41,10 @@ public class Constants {
         public static double kWheelBase = 0.57785;
         public static double kTrackWidth = 0.57785;
 
-        public static double kFLOffset = 0.309326171875;
-        public static double kFROffset = 0.256103515625;
-        public static double kRLOffset = -0.22314453125;
-        public static double kRROffset = 0.148193359375;
+        public static double kFLOffset = -0.24072265625;
+        public static double kFROffset = 0.294677734375;
+        public static double kRLOffset = -0.17724609375;
+        public static double kRROffset = 0.38720703125;
 
         public static class DriveMotorPID {
             public static double kP = 0.2;
