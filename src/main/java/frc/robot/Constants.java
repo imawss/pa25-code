@@ -22,7 +22,7 @@ public class Constants {
         public static final boolean kDriveRLInverted = false;
 
         public static final boolean kSteerFLInverted = false;
-        public static final boolean kSteerFRInverted = false;
+        public static final boolean kSteerFRInverted = true;
         public static final boolean kSteerRRInverted = false;
         public static final boolean kSteerRLInverted = false;
 
@@ -41,10 +41,10 @@ public class Constants {
         public static double kWheelBase = 0.57785;
         public static double kTrackWidth = 0.57785;
 
-        public static double kFLOffset;
-        public static double kFROffset;
-        public static double kRLOffset;
-        public static double kRROffset;
+        public static double kFLOffset = 0.309326171875;
+        public static double kFROffset = 0.256103515625;
+        public static double kRLOffset = -0.22314453125;
+        public static double kRROffset = 0.148193359375;
 
         public static class DriveMotorPID {
             public static double kP = 0.2;
@@ -60,20 +60,20 @@ public class Constants {
     }
 
     public static class CANIds {
-        public static int DRIVE_FL = 0;
-        public static int DRIVE_FR = 2;
-        public static int DRIVE_RL = 4;
-        public static int DRIVE_RR = 6;
+        public static int DRIVE_FL = 4;
+        public static int DRIVE_FR = 0;
+        public static int DRIVE_RL = 6;
+        public static int DRIVE_RR = 2;
 
-        public static int STEER_FL = 1;
-        public static int STEER_FR = 3;
-        public static int STEER_RL = 5;
-        public static int STEER_RR = 7;
+        public static int STEER_FL = 5;
+        public static int STEER_FR = 1;
+        public static int STEER_RL = 7;
+        public static int STEER_RR = 3;
 
-        public static int CANCODER_FL = 8;
-        public static int CANCODER_FR = 9;
-        public static int CANCODER_RL = 10;
-        public static int CANCODER_RR = 11;
+        public static int CANCODER_FL = 10;
+        public static int CANCODER_FR = 8;
+        public static int CANCODER_RL = 11;
+        public static int CANCODER_RR = 9;
 
         public static int PIGEON = 12;
     }

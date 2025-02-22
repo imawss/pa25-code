@@ -70,6 +70,11 @@ public class CustomSwerveSubsystem extends SubsystemBase {
         };
 
         odometer = new SwerveDriveOdometry(kinematics, getGyroAngle(), modulePositions);
+        zeroHeading();
+        FLModule.resetEncoders();
+        FRModule.resetEncoders();
+        RLModule.resetEncoders();
+        RRModule.resetEncoders();
 
         new Thread(() -> {
             try {

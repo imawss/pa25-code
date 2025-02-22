@@ -36,7 +36,7 @@ public class CustomSwerveModule extends SubsystemBase {
 
         this.steerEncoder = new CANcoder(steerEncoderPort);
         this.CANCoderOffset = CANCoderOffset;
-        
+
         driveMotor = new TalonFX(driveMotorPort);
         driveMotorConfiguration = new TalonFXConfiguration();
         driveMotorConfiguration.MotorOutput.Inverted = isDriveMotorInverted ? InvertedValue.CounterClockwise_Positive
@@ -57,6 +57,7 @@ public class CustomSwerveModule extends SubsystemBase {
         steerMotorConfiguration.Slot0.kD = Constants.SwerveDrive.SteerMotorPID.kD;
         steerMotorConfiguration.Feedback.FeedbackRemoteSensorID = steerEncoder.getDeviceID();
         steerMotorConfiguration.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+        steerMotorConfiguration.Feedback.SensorToMechanismRatio = Constants.SwerveDrive.kSteerGearRatio;
         steerMotor.getConfigurator().apply(steerMotorConfiguration);
     }
 
@@ -79,7 +80,9 @@ public class CustomSwerveModule extends SubsystemBase {
     }
 
     public Rotation2d getSteerAngle() {
-        return Rotation2d.fromRotations(steerEncoder.getAbsolutePosition().getValue().in(Rotations));
+        return Rotation2d.fromRotations(
+            steerEncoder.getPosition().getValue().in(Rotations))
+            .minus(CANCoderOffset);
     }
 
     public double getSteerVelocity() {
@@ -93,7 +96,7 @@ public class CustomSwerveModule extends SubsystemBase {
     }
 
     private void configureSteerEncoder() {
-        Rotation2d absolutePosition = Rotation2d.fromRotations(steerEncoder.getAbsolutePosition().getValue().in(Degree))
+        Rotation2d absolutePosition = Rotation2d.fromRotations(steerEncoder.getAbsolutePosition().getValue().in(Rotations))
                 .minus(CANCoderOffset);
         steerEncoder.setPosition(absolutePosition.getRotations());
         steerMotor.setPosition(absolutePosition.getRotations());
