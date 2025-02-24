@@ -11,6 +11,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,21 +22,10 @@ import frc.robot.subsystems.CustomSwerveModule;
 @SuppressWarnings("unused")
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
   private final RobotContainer m_robotContainer;
-  private CANcoder FL;
-  private CANcoder FR;
-  private CANcoder RL;
-  private CANcoder RR;
-  private TalonFX steer;
 
   public Robot() {
     m_robotContainer = new RobotContainer();
-    FL = new CANcoder(Constants.CANIds.CANCODER_FL);
-    FR = new CANcoder(Constants.CANIds.CANCODER_FR);
-    RL = new CANcoder(Constants.CANIds.CANCODER_RL);
-    RR = new CANcoder(Constants.CANIds.CANCODER_RR);
-    steer = new TalonFX(5);
   }
 
   @Override
@@ -85,7 +75,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
   }
 
-  @Override    
+  @Override
   public void teleopExit() {
   }
 
@@ -97,10 +87,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    SmartDashboard.putNumber("FL", FL.getAbsolutePosition().getValueAsDouble());
-    SmartDashboard.putNumber("FR", FR.getAbsolutePosition().getValueAsDouble());
-    SmartDashboard.putNumber("RL", RL.getAbsolutePosition().getValueAsDouble());
-    SmartDashboard.putNumber("RR", RR.getAbsolutePosition().getValueAsDouble());
+
   }
 
   @Override

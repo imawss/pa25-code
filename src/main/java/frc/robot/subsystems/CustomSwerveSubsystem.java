@@ -11,7 +11,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -55,10 +54,10 @@ public class CustomSwerveSubsystem extends SubsystemBase {
 
     public CustomSwerveSubsystem() {
         kinematics = new SwerveDriveKinematics(
-                new Translation2d(Constants.SwerveDrive.kWheelBase / 2, Constants.SwerveDrive.kTrackWidth / 2),
                 new Translation2d(Constants.SwerveDrive.kWheelBase / 2, -Constants.SwerveDrive.kTrackWidth / 2),
-                new Translation2d(-Constants.SwerveDrive.kWheelBase / 2, Constants.SwerveDrive.kTrackWidth / 2),
-                new Translation2d(-Constants.SwerveDrive.kWheelBase / 2, -Constants.SwerveDrive.kTrackWidth / 2));
+                new Translation2d(Constants.SwerveDrive.kWheelBase / 2, Constants.SwerveDrive.kTrackWidth / 2),
+                new Translation2d(-Constants.SwerveDrive.kWheelBase / 2, -Constants.SwerveDrive.kTrackWidth / 2),
+                new Translation2d(Constants.SwerveDrive.kWheelBase / 2, Constants.SwerveDrive.kTrackWidth / 2));
 
         gyro = new Pigeon2(Constants.CANIds.PIGEON);
 
@@ -70,19 +69,14 @@ public class CustomSwerveSubsystem extends SubsystemBase {
         };
 
         odometer = new SwerveDriveOdometry(kinematics, getGyroAngle(), modulePositions);
-        zeroHeading();
         FLModule.resetEncoders();
         FRModule.resetEncoders();
         RLModule.resetEncoders();
         RRModule.resetEncoders();
 
-        new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-                zeroHeading();
-            } catch (Exception e) {
-            }
-        }).start();
+        if (gyro.isConnected()) {
+            resetGyro();
+        }
     }
 
     @Override
@@ -101,7 +95,7 @@ public class CustomSwerveSubsystem extends SubsystemBase {
         return Math.IEEEremainder(gyro.getYaw().getValue().in(Rotation), 360);
     }
 
-    private void zeroHeading() {
+    private void resetGyro() {
         gyro.reset();
         gyro.setYaw(0);
     }

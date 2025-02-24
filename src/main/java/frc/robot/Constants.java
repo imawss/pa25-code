@@ -13,8 +13,6 @@ public class Constants {
         public static final double kSteerGearRatio = 21.1267;
         public static final double kDriveEncoderRot2Meter = kWheelCircumference / kGearRatio;
         public static final double kTurningEncoderRot2Rad = kSteerGearRatio / (Math.PI * 2);
-        public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
-        public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
         
         public static final boolean kDriveFLInverted = false;
         public static final boolean kDriveFRInverted = false;
@@ -22,7 +20,7 @@ public class Constants {
         public static final boolean kDriveRLInverted = false;
 
         public static final boolean kSteerFLInverted = false;
-        public static final boolean kSteerFRInverted = true;
+        public static final boolean kSteerFRInverted = false;
         public static final boolean kSteerRRInverted = false;
         public static final boolean kSteerRLInverted = false;
 
@@ -41,10 +39,10 @@ public class Constants {
         public static double kWheelBase = 0.57785;
         public static double kTrackWidth = 0.57785;
 
-        public static double kFLOffset = -0.24072265625;
-        public static double kFROffset = 0.294677734375;
-        public static double kRLOffset = -0.17724609375;
-        public static double kRROffset = 0.38720703125;
+        public static double kFLOffset = -0.11181640625;
+        public static double kFROffset = -0.46923828125;
+        public static double kRLOffset = 0.2772216796875;
+        public static double kRROffset = -0.177001953125;
 
         public static class DriveMotorPID {
             public static double kP = 0.2;
@@ -80,12 +78,6 @@ public class Constants {
 
     public static class DriverConstants{
         public static final int kDriverControllerPort = 0;
-
-        public static final int kDriverYAxis = 1;
-        public static final int kDriverXAxis = 0;
-        public static final int kDriverRotAxis = 4;
-        public static final int kDriverFieldOrientedButtonIdx = 1;
-
         public static final double kDeadband = 0.05;
     }
 }

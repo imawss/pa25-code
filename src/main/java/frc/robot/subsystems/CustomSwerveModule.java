@@ -1,23 +1,18 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 
-import static edu.wpi.first.units.Units.Degree;
 import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.math.Conversions;
 import frc.robot.Constants;
 
 public class CustomSwerveModule extends SubsystemBase {
@@ -39,25 +34,28 @@ public class CustomSwerveModule extends SubsystemBase {
 
         driveMotor = new TalonFX(driveMotorPort);
         driveMotorConfiguration = new TalonFXConfiguration();
-        driveMotorConfiguration.MotorOutput.Inverted = isDriveMotorInverted ? InvertedValue.CounterClockwise_Positive
-                : InvertedValue.Clockwise_Positive;
-        driveMotorConfiguration.Feedback.SensorToMechanismRatio = Constants.SwerveDrive.kGearRatio;
+        driveMotorConfiguration.MotorOutput.Inverted = isDriveMotorInverted ? InvertedValue.CounterClockwise_Positive 
+            : InvertedValue.Clockwise_Positive;
+        driveMotorConfiguration.Feedback.SensorToMechanismRatio = 6.75 ;
+
         driveMotorConfiguration.Slot0.kP = Constants.SwerveDrive.DriveMotorPID.kP;
         driveMotorConfiguration.Slot0.kI = Constants.SwerveDrive.DriveMotorPID.kI;
         driveMotorConfiguration.Slot0.kD = Constants.SwerveDrive.DriveMotorPID.kD;
+
         driveMotor.getConfigurator().apply(driveMotorConfiguration);
 
         this.steerMotor = new TalonFX(steerMotorPort);
         steerMotorConfiguration = new TalonFXConfiguration();
         steerMotorConfiguration.MotorOutput.Inverted = isSteerMotorInverted ? InvertedValue.CounterClockwise_Positive
-                : InvertedValue.Clockwise_Positive;
+            : InvertedValue.Clockwise_Positive;
         steerMotorConfiguration.ClosedLoopGeneral.ContinuousWrap = true;
+
         steerMotorConfiguration.Slot0.kP = Constants.SwerveDrive.SteerMotorPID.kP;
         steerMotorConfiguration.Slot0.kI = Constants.SwerveDrive.SteerMotorPID.kI;
         steerMotorConfiguration.Slot0.kD = Constants.SwerveDrive.SteerMotorPID.kD;
-        steerMotorConfiguration.Feedback.FeedbackRemoteSensorID = steerEncoder.getDeviceID();
-        steerMotorConfiguration.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
+
         steerMotorConfiguration.Feedback.SensorToMechanismRatio = Constants.SwerveDrive.kSteerGearRatio;
+
         steerMotor.getConfigurator().apply(steerMotorConfiguration);
     }
 
@@ -86,8 +84,8 @@ public class CustomSwerveModule extends SubsystemBase {
     }
 
     public double getSteerVelocity() {
-        return Conversions.RPSToMPS(steerEncoder.getVelocity().getValue().in(RotationsPerSecond),
-                Constants.SwerveDrive.kWheelCircumference);
+        double wheelRPS = steerMotor.getVelocity().getValue().in(RotationsPerSecond);
+        return wheelRPS * Constants.SwerveDrive.kWheelCircumference / Constants.SwerveDrive.kSteerGearRatio;
     }
 
     public void stopModule() {
